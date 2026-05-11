@@ -157,8 +157,11 @@ def load_comms():
         df = pd.read_csv(COMMS_FILE)
         df["trip_id"] = df["trip_id"].astype(int)
         df["comm_id"] = df["comm_id"].astype(int)
+        if "sent" not in df.columns:
+            df["sent"] = False
+        df["sent"] = df["sent"].fillna(False).astype(bool)
         return df
-    return pd.DataFrame(columns=["comm_id", "trip_id", "comm_type", "send_date", "subject", "body"])
+    return pd.DataFrame(columns=["comm_id", "trip_id", "comm_type", "send_date", "subject", "body", "sent"])
 
 
 def save_trips(df):
@@ -255,15 +258,20 @@ if page == "🏠 Dashboard":
         merged["trip_date"] = pd.to_datetime(merged["trip_date"]).dt.date
         merged = merged[merged["trip_date"] >= today]
         merged["days_until"] = merged["send_date"].apply(lambda d: (d - today).days)
+        merged["sent"] = merged["sent"].fillna(False).astype(bool)
 
-        overdue = merged[merged["days_until"] < 0].sort_values("days_until")
-        due_soon = merged[(merged["days_until"] >= 0) & (merged["days_until"] <= 7)].sort_values("days_until")
-        upcoming = merged[(merged["days_until"] > 7) & (merged["days_until"] <= 30)].sort_values("days_until")
+        pending = merged[~merged["sent"]]
+        sent_items = merged[merged["sent"]]
 
-        c1, c2, c3 = st.columns(3)
+        overdue = pending[pending["days_until"] < 0].sort_values("days_until")
+        due_soon = pending[(pending["days_until"] >= 0) & (pending["days_until"] <= 7)].sort_values("days_until")
+        upcoming = pending[(pending["days_until"] > 7) & (pending["days_until"] <= 30)].sort_values("days_until")
+
+        c1, c2, c3, c4 = st.columns(4)
         c1.metric("🔴 Overdue", len(overdue), help="Send these now!")
         c2.metric("🟡 Due This Week", len(due_soon))
         c3.metric("🟢 Next 30 Days", len(upcoming))
+        c4.metric("✅ Sent", len(sent_items))
 
         def render_card(row):
             d = int(row["days_until"])
@@ -288,6 +296,10 @@ if page == "🏠 Dashboard":
                 st.markdown("**Email Body:**")
                 st.text_area("Email Body", value=row["body"], height=220,
                              key=f"dash_{row['comm_id']}", disabled=True, label_visibility="collapsed")
+                if st.button("✅ Mark as Sent", key=f"sent_{row['comm_id']}", type="primary"):
+                    comms_df.loc[comms_df["comm_id"] == row["comm_id"], "sent"] = True
+                    save_comms(comms_df)
+                    st.rerun()
 
         if not overdue.empty:
             st.subheader("🔴 Overdue — Send These Now!")
@@ -306,6 +318,18 @@ if page == "🏠 Dashboard":
 
         if overdue.empty and due_soon.empty and upcoming.empty:
             st.success("✅ All caught up! No communications due in the next 30 days.")
+
+        if not sent_items.empty:
+            st.markdown("---")
+            with st.expander(f"✅ Sent ({len(sent_items)} completed)", expanded=False):
+                for _, r in sent_items.sort_values("send_date", ascending=False).iterrows():
+                    col1, col2, col3 = st.columns([3, 2, 1])
+                    col1.markdown(f"**{r['grade']} — {r['trip_name']}** · {r['comm_type']}")
+                    col2.markdown(f"Sent by: {r['send_date'].strftime('%B %d, %Y')}")
+                    if col3.button("↩️ Undo", key=f"undo_{r['comm_id']}"):
+                        comms_df.loc[comms_df["comm_id"] == r["comm_id"], "sent"] = False
+                        save_comms(comms_df)
+                        st.rerun()
 
 # ── Schedule by Grade ─────────────────────────────────────────────────────────
 elif page == "📋 Schedule by Grade":
@@ -339,8 +363,13 @@ elif page == "📋 Schedule by Grade":
                 trip_comms = comms_df[comms_df["trip_id"] == trip["trip_id"]].copy()
                 if not trip_comms.empty:
                     trip_comms["send_date"] = pd.to_datetime(trip_comms["send_date"]).dt.date
-                    trip_comms["Status"] = trip_comms["send_date"].apply(
-                        lambda d: "🔴 Overdue" if d < today else ("🟠 Today" if d == today else "🟢 Upcoming")
+                    trip_comms["sent"] = trip_comms["sent"].fillna(False).astype(bool)
+                    trip_comms["Status"] = trip_comms.apply(
+                        lambda r: "✅ Sent" if r["sent"] else (
+                            "🔴 Overdue" if r["send_date"] < today else (
+                                "🟠 Today" if r["send_date"] == today else "🟢 Upcoming"
+                            )
+                        ), axis=1
                     )
                     display = trip_comms[["comm_type", "send_date", "Status"]].rename(columns={
                         "comm_type": "Email Type", "send_date": "Send Date"

@@ -1,4 +1,4 @@
-comm_id,trip_id,comm_type,send_date,subject,body
+comm_id,trip_id,comm_type,send_date,subject,body,sent
 1,1,Initial Announcement,2026-05-04,Initial Announcement: Petting Zoo — PreK,"Dear PreK Families,
 
 We are excited to announce that our class will be going on a field trip to Happy Hollow Zoo & Farm on May 25, 2026!
@@ -8,7 +8,7 @@ This is a wonderful educational opportunity for our students. More details about
 Please mark your calendars and feel free to reach out with any questions.
 
 Warm regards,
-[Your Name]"
+[Your Name]",False
 2,1,Permission Slip Reminder,2026-05-11,Permission Slip Reminder: Petting Zoo — PreK,"Dear PreK Families,
 
 A reminder that our upcoming field trip to Happy Hollow Zoo & Farm is on May 25, 2026.
@@ -18,7 +18,7 @@ Permission slips are due by May 13, 2026. Please return the signed form along wi
 Students without a signed permission slip will not be able to attend.
 
 Thank you,
-[Your Name]"
+[Your Name]",False
 3,1,Payment Reminder,2026-05-18,Payment Reminder: Petting Zoo — PreK,"Dear PreK Families,
 
 This is a friendly reminder that our field trip to Happy Hollow Zoo & Farm is just one week away on May 25, 2026!
@@ -28,7 +28,7 @@ If you have not yet returned your child's permission slip and payment, please do
 Please don't hesitate to reach out if you have any concerns — we want all students to participate.
 
 Thank you,
-[Your Name]"
+[Your Name]",False
 4,1,Day-Before Reminder,2026-05-24,Day-Before Reminder: Petting Zoo — PreK,"Dear PreK Families,
 
 Just a reminder that tomorrow, May 25, 2026, is our field trip to Happy Hollow Zoo & Farm!
@@ -42,7 +42,7 @@ Please make sure your child:
 We are looking forward to a wonderful day! Feel free to reach out with any last-minute questions.
 
 See you tomorrow,
-[Your Name]"
+[Your Name]",False
 5,2,Initial Announcement,2026-05-16,Initial Announcement: Story Time Walk — PreK,"Dear PreK Families,
 
 We are excited to announce that our class will be going on a field trip to City Botanical Garden on June 06, 2026!
@@ -52,7 +52,7 @@ This is a wonderful educational opportunity for our students. More details about
 Please mark your calendars and feel free to reach out with any questions.
 
 Warm regards,
-[Your Name]"
+[Your Name]",False
 6,2,Permission Slip Reminder,2026-05-23,Permission Slip Reminder: Story Time Walk — PreK,"Dear PreK Families,
 
 A reminder that our upcoming field trip to City Botanical Garden is on June 06, 2026.
@@ -62,7 +62,7 @@ Permission slips are due by May 25, 2026. Please return the signed form along wi
 Students without a signed permission slip will not be able to attend.
 
 Thank you,
-[Your Name]"
+[Your Name]",False
 7,2,Payment Reminder,2026-05-30,Payment Reminder: Story Time Walk — PreK,"Dear PreK Families,
 
 This is a friendly reminder that our field trip to City Botanical Garden is just one week away on June 06, 2026!
@@ -72,7 +72,7 @@ If you have not yet returned your child's permission slip and payment, please do
 Please don't hesitate to reach out if you have any concerns — we want all students to participate.
 
 Thank you,
-[Your Name]"
+[Your Name]",False
 8,2,Day-Before Reminder,2026-06-05,Day-Before Reminder: Story Time Walk — PreK,"Dear PreK Families,
 
 Just a reminder that tomorrow, June 06, 2026, is our field trip to City Botanical Garden!
@@ -86,7 +86,7 @@ Please make sure your child:
 We are looking forward to a wonderful day! Feel free to reach out with any last-minute questions.
 
 See you tomorrow,
-[Your Name]"
+[Your Name]",False
 9,3,Initial Announcement,2026-05-28,Initial Announcement: Apple Picking — Kindergarten,"Dear Kindergarten Families,
 
 We are excited to announce that our class will be going on a field trip to Sunridge Farm on June 18, 2026!
@@ -96,7 +96,7 @@ This is a wonderful educational opportunity for our students. More details about
 Please mark your calendars and feel free to reach out with any questions.
 
 Warm regards,
-[Your Name]"
+[Your Name]",False
 10,3,Permission Slip Reminder,2026-06-04,Permission Slip Reminder: Apple Picking — Kindergarten,"Dear Kindergarten Families,
 
 A reminder that our upcoming field trip to Sunridge Farm is on June 18, 2026.
@@ -106,7 +106,7 @@ Permission slips are due by June 06, 2026. Please return the signed form along w
 Students without a signed permission slip will not be able to attend.
 
 Thank you,
-[Your Name]"
+[Your Name]",False
 11,3,Payment Reminder,2026-06-11,Payment Reminder: Apple Picking — Kindergarten,"Dear Kindergarten Families,
 
 This is a friendly reminder that our field trip to Sunridge Farm is just one week away on June 18, 2026!
@@ -116,7 +116,7 @@ If you have not yet returned your child's permission slip and payment, please do
 Please don't hesitate to reach out if you have any concerns — we want all students to participate.
 
 Thank you,
-[Your Name]"
+[Your Name]",False
 12,3,Day-Before Reminder,2026-06-17,Day-Before Reminder: Apple Picking — Kindergarten,"Dear Kindergarten Families,
 
 Just a reminder that tomorrow, June 18, 2026, is our field trip to Sunridge Farm!
@@ -130,7 +130,7 @@ Please make sure your child:
 We are looking forward to a wonderful day! Feel free to reach out with any last-minute questions.
 
 See you tomorrow,
-[Your Name]"
+[Your Name]",False
 13,4,Initial Announcement,2026-06-09,Initial Announcement: Fire Station Visit — Kindergarten,"Dear Kindergarten Families,
 
 We are excited to announce that our class will be going on a field trip to Central Fire Station on June 30, 2026!
@@ -140,7 +140,7 @@ This is a wonderful educational opportunity for our students. More details about
 Please mark your calendars and feel free to reach out with any questions.
 
 Warm regards,
-[Your Name]"
+[Your Name]",False
 14,4,Permission Slip Reminder,2026-06-16,Permission Slip Reminder: Fire Station Visit — Kindergarten,"Dear Kindergarten Families,
 
 A reminder that our upcoming field trip to Central Fire Station is on June 30, 2026.
@@ -150,7 +150,7 @@ Permission slips are due by June 18, 2026. Please return the signed form along w
 Students without a signed permission slip will not be able to attend.
 
 Thank you,
-[Your Name]"
+[Your Name]",False
 15,4,Payment Reminder,2026-06-23,Payment Reminder: Fire Station Visit — Kindergarten,"Dear Kindergarten Families,
 
 This is a friendly reminder that our field trip to Central Fire Station is just one week away on June 30, 2026!
@@ -160,7 +160,7 @@ If you have not yet returned your child's permission slip and payment, please do
 Please don't hesitate to reach out if you have any concerns — we want all students to participate.
 
 Thank you,
-[Your Name]"
+[Your Name]",False
 16,4,Day-Before Reminder,2026-06-29,Day-Before Reminder: Fire Station Visit — Kindergarten,"Dear Kindergarten Families,
 
 Just a reminder that tomorrow, June 30, 2026, is our field trip to Central Fire Station!
@@ -174,7 +174,7 @@ Please make sure your child:
 We are looking forward to a wonderful day! Feel free to reach out with any last-minute questions.
 
 See you tomorrow,
-[Your Name]"
+[Your Name]",False
 17,5,Initial Announcement,2026-06-21,Initial Announcement: Science Museum — 1st Grade,"Dear 1st Grade Families,
 
 We are excited to announce that our class will be going on a field trip to Discovery Science Center on July 12, 2026!
@@ -184,7 +184,7 @@ This is a wonderful educational opportunity for our students. More details about
 Please mark your calendars and feel free to reach out with any questions.
 
 Warm regards,
-[Your Name]"
+[Your Name]",False
 18,5,Permission Slip Reminder,2026-06-28,Permission Slip Reminder: Science Museum — 1st Grade,"Dear 1st Grade Families,
 
 A reminder that our upcoming field trip to Discovery Science Center is on July 12, 2026.
@@ -194,7 +194,7 @@ Permission slips are due by June 30, 2026. Please return the signed form along w
 Students without a signed permission slip will not be able to attend.
 
 Thank you,
-[Your Name]"
+[Your Name]",False
 19,5,Payment Reminder,2026-07-05,Payment Reminder: Science Museum — 1st Grade,"Dear 1st Grade Families,
 
 This is a friendly reminder that our field trip to Discovery Science Center is just one week away on July 12, 2026!
@@ -204,7 +204,7 @@ If you have not yet returned your child's permission slip and payment, please do
 Please don't hesitate to reach out if you have any concerns — we want all students to participate.
 
 Thank you,
-[Your Name]"
+[Your Name]",False
 20,5,Day-Before Reminder,2026-07-11,Day-Before Reminder: Science Museum — 1st Grade,"Dear 1st Grade Families,
 
 Just a reminder that tomorrow, July 12, 2026, is our field trip to Discovery Science Center!
@@ -218,7 +218,7 @@ Please make sure your child:
 We are looking forward to a wonderful day! Feel free to reach out with any last-minute questions.
 
 See you tomorrow,
-[Your Name]"
+[Your Name]",False
 21,6,Initial Announcement,2026-07-03,Initial Announcement: Nature Hike — 2nd Grade,"Dear 2nd Grade Families,
 
 We are excited to announce that our class will be going on a field trip to Regional Nature Park on July 24, 2026!
@@ -228,7 +228,7 @@ This is a wonderful educational opportunity for our students. More details about
 Please mark your calendars and feel free to reach out with any questions.
 
 Warm regards,
-[Your Name]"
+[Your Name]",False
 22,6,Permission Slip Reminder,2026-07-10,Permission Slip Reminder: Nature Hike — 2nd Grade,"Dear 2nd Grade Families,
 
 A reminder that our upcoming field trip to Regional Nature Park is on July 24, 2026.
@@ -238,7 +238,7 @@ Permission slips are due by July 12, 2026. Please return the signed form along w
 Students without a signed permission slip will not be able to attend.
 
 Thank you,
-[Your Name]"
+[Your Name]",False
 23,6,Payment Reminder,2026-07-17,Payment Reminder: Nature Hike — 2nd Grade,"Dear 2nd Grade Families,
 
 This is a friendly reminder that our field trip to Regional Nature Park is just one week away on July 24, 2026!
@@ -248,7 +248,7 @@ If you have not yet returned your child's permission slip and payment, please do
 Please don't hesitate to reach out if you have any concerns — we want all students to participate.
 
 Thank you,
-[Your Name]"
+[Your Name]",False
 24,6,Day-Before Reminder,2026-07-23,Day-Before Reminder: Nature Hike — 2nd Grade,"Dear 2nd Grade Families,
 
 Just a reminder that tomorrow, July 24, 2026, is our field trip to Regional Nature Park!
@@ -262,7 +262,7 @@ Please make sure your child:
 We are looking forward to a wonderful day! Feel free to reach out with any last-minute questions.
 
 See you tomorrow,
-[Your Name]"
+[Your Name]",False
 25,7,Initial Announcement,2026-07-15,Initial Announcement: Aquarium Visit — 2nd Grade,"Dear 2nd Grade Families,
 
 We are excited to announce that our class will be going on a field trip to Bay Aquarium on August 05, 2026!
@@ -272,7 +272,7 @@ This is a wonderful educational opportunity for our students. More details about
 Please mark your calendars and feel free to reach out with any questions.
 
 Warm regards,
-[Your Name]"
+[Your Name]",False
 26,7,Permission Slip Reminder,2026-07-22,Permission Slip Reminder: Aquarium Visit — 2nd Grade,"Dear 2nd Grade Families,
 
 A reminder that our upcoming field trip to Bay Aquarium is on August 05, 2026.
@@ -282,7 +282,7 @@ Permission slips are due by July 24, 2026. Please return the signed form along w
 Students without a signed permission slip will not be able to attend.
 
 Thank you,
-[Your Name]"
+[Your Name]",False
 27,7,Payment Reminder,2026-07-29,Payment Reminder: Aquarium Visit — 2nd Grade,"Dear 2nd Grade Families,
 
 This is a friendly reminder that our field trip to Bay Aquarium is just one week away on August 05, 2026!
@@ -292,7 +292,7 @@ If you have not yet returned your child's permission slip and payment, please do
 Please don't hesitate to reach out if you have any concerns — we want all students to participate.
 
 Thank you,
-[Your Name]"
+[Your Name]",False
 28,7,Day-Before Reminder,2026-08-04,Day-Before Reminder: Aquarium Visit — 2nd Grade,"Dear 2nd Grade Families,
 
 Just a reminder that tomorrow, August 05, 2026, is our field trip to Bay Aquarium!
@@ -306,7 +306,7 @@ Please make sure your child:
 We are looking forward to a wonderful day! Feel free to reach out with any last-minute questions.
 
 See you tomorrow,
-[Your Name]"
+[Your Name]",False
 29,8,Initial Announcement,2026-07-27,Initial Announcement: History Museum — 3rd Grade,"Dear 3rd Grade Families,
 
 We are excited to announce that our class will be going on a field trip to City History Museum on August 17, 2026!
@@ -316,7 +316,7 @@ This is a wonderful educational opportunity for our students. More details about
 Please mark your calendars and feel free to reach out with any questions.
 
 Warm regards,
-[Your Name]"
+[Your Name]",False
 30,8,Permission Slip Reminder,2026-08-03,Permission Slip Reminder: History Museum — 3rd Grade,"Dear 3rd Grade Families,
 
 A reminder that our upcoming field trip to City History Museum is on August 17, 2026.
@@ -326,7 +326,7 @@ Permission slips are due by August 05, 2026. Please return the signed form along
 Students without a signed permission slip will not be able to attend.
 
 Thank you,
-[Your Name]"
+[Your Name]",False
 31,8,Payment Reminder,2026-08-10,Payment Reminder: History Museum — 3rd Grade,"Dear 3rd Grade Families,
 
 This is a friendly reminder that our field trip to City History Museum is just one week away on August 17, 2026!
@@ -336,7 +336,7 @@ If you have not yet returned your child's permission slip and payment, please do
 Please don't hesitate to reach out if you have any concerns — we want all students to participate.
 
 Thank you,
-[Your Name]"
+[Your Name]",False
 32,8,Day-Before Reminder,2026-08-16,Day-Before Reminder: History Museum — 3rd Grade,"Dear 3rd Grade Families,
 
 Just a reminder that tomorrow, August 17, 2026, is our field trip to City History Museum!
@@ -350,7 +350,7 @@ Please make sure your child:
 We are looking forward to a wonderful day! Feel free to reach out with any last-minute questions.
 
 See you tomorrow,
-[Your Name]"
+[Your Name]",False
 33,9,Initial Announcement,2026-08-08,Initial Announcement: Planetarium — 4th Grade,"Dear 4th Grade Families,
 
 We are excited to announce that our class will be going on a field trip to Space Science Center on August 29, 2026!
@@ -360,7 +360,7 @@ This is a wonderful educational opportunity for our students. More details about
 Please mark your calendars and feel free to reach out with any questions.
 
 Warm regards,
-[Your Name]"
+[Your Name]",False
 34,9,Permission Slip Reminder,2026-08-15,Permission Slip Reminder: Planetarium — 4th Grade,"Dear 4th Grade Families,
 
 A reminder that our upcoming field trip to Space Science Center is on August 29, 2026.
@@ -370,7 +370,7 @@ Permission slips are due by August 17, 2026. Please return the signed form along
 Students without a signed permission slip will not be able to attend.
 
 Thank you,
-[Your Name]"
+[Your Name]",False
 35,9,Payment Reminder,2026-08-22,Payment Reminder: Planetarium — 4th Grade,"Dear 4th Grade Families,
 
 This is a friendly reminder that our field trip to Space Science Center is just one week away on August 29, 2026!
@@ -380,7 +380,7 @@ If you have not yet returned your child's permission slip and payment, please do
 Please don't hesitate to reach out if you have any concerns — we want all students to participate.
 
 Thank you,
-[Your Name]"
+[Your Name]",False
 36,9,Day-Before Reminder,2026-08-28,Day-Before Reminder: Planetarium — 4th Grade,"Dear 4th Grade Families,
 
 Just a reminder that tomorrow, August 29, 2026, is our field trip to Space Science Center!
@@ -394,7 +394,7 @@ Please make sure your child:
 We are looking forward to a wonderful day! Feel free to reach out with any last-minute questions.
 
 See you tomorrow,
-[Your Name]"
+[Your Name]",False
 37,10,Initial Announcement,2026-08-20,Initial Announcement: Farm to Table — 4th Grade,"Dear 4th Grade Families,
 
 We are excited to announce that our class will be going on a field trip to Green Valley Farm on September 10, 2026!
@@ -404,7 +404,7 @@ This is a wonderful educational opportunity for our students. More details about
 Please mark your calendars and feel free to reach out with any questions.
 
 Warm regards,
-[Your Name]"
+[Your Name]",False
 38,10,Permission Slip Reminder,2026-08-27,Permission Slip Reminder: Farm to Table — 4th Grade,"Dear 4th Grade Families,
 
 A reminder that our upcoming field trip to Green Valley Farm is on September 10, 2026.
@@ -414,7 +414,7 @@ Permission slips are due by August 29, 2026. Please return the signed form along
 Students without a signed permission slip will not be able to attend.
 
 Thank you,
-[Your Name]"
+[Your Name]",False
 39,10,Payment Reminder,2026-09-03,Payment Reminder: Farm to Table — 4th Grade,"Dear 4th Grade Families,
 
 This is a friendly reminder that our field trip to Green Valley Farm is just one week away on September 10, 2026!
@@ -424,7 +424,7 @@ If you have not yet returned your child's permission slip and payment, please do
 Please don't hesitate to reach out if you have any concerns — we want all students to participate.
 
 Thank you,
-[Your Name]"
+[Your Name]",False
 40,10,Day-Before Reminder,2026-09-09,Day-Before Reminder: Farm to Table — 4th Grade,"Dear 4th Grade Families,
 
 Just a reminder that tomorrow, September 10, 2026, is our field trip to Green Valley Farm!
@@ -438,7 +438,7 @@ Please make sure your child:
 We are looking forward to a wonderful day! Feel free to reach out with any last-minute questions.
 
 See you tomorrow,
-[Your Name]"
+[Your Name]",False
 41,11,Initial Announcement,2026-09-01,Initial Announcement: Art Museum — 5th Grade,"Dear 5th Grade Families,
 
 We are excited to announce that our class will be going on a field trip to Metropolitan Art Gallery on September 22, 2026!
@@ -448,7 +448,7 @@ This is a wonderful educational opportunity for our students. More details about
 Please mark your calendars and feel free to reach out with any questions.
 
 Warm regards,
-[Your Name]"
+[Your Name]",False
 42,11,Permission Slip Reminder,2026-09-08,Permission Slip Reminder: Art Museum — 5th Grade,"Dear 5th Grade Families,
 
 A reminder that our upcoming field trip to Metropolitan Art Gallery is on September 22, 2026.
@@ -458,7 +458,7 @@ Permission slips are due by September 10, 2026. Please return the signed form al
 Students without a signed permission slip will not be able to attend.
 
 Thank you,
-[Your Name]"
+[Your Name]",False
 43,11,Payment Reminder,2026-09-15,Payment Reminder: Art Museum — 5th Grade,"Dear 5th Grade Families,
 
 This is a friendly reminder that our field trip to Metropolitan Art Gallery is just one week away on September 22, 2026!
@@ -468,7 +468,7 @@ If you have not yet returned your child's permission slip and payment, please do
 Please don't hesitate to reach out if you have any concerns — we want all students to participate.
 
 Thank you,
-[Your Name]"
+[Your Name]",False
 44,11,Day-Before Reminder,2026-09-21,Day-Before Reminder: Art Museum — 5th Grade,"Dear 5th Grade Families,
 
 Just a reminder that tomorrow, September 22, 2026, is our field trip to Metropolitan Art Gallery!
@@ -482,7 +482,7 @@ Please make sure your child:
 We are looking forward to a wonderful day! Feel free to reach out with any last-minute questions.
 
 See you tomorrow,
-[Your Name]"
+[Your Name]",False
 45,12,Initial Announcement,2026-09-13,Initial Announcement: Environmental Center — 6th Grade,"Dear 6th Grade Families,
 
 We are excited to announce that our class will be going on a field trip to Nature Reserve on October 04, 2026!
@@ -492,7 +492,7 @@ This is a wonderful educational opportunity for our students. More details about
 Please mark your calendars and feel free to reach out with any questions.
 
 Warm regards,
-[Your Name]"
+[Your Name]",False
 46,12,Permission Slip Reminder,2026-09-20,Permission Slip Reminder: Environmental Center — 6th Grade,"Dear 6th Grade Families,
 
 A reminder that our upcoming field trip to Nature Reserve is on October 04, 2026.
@@ -502,7 +502,7 @@ Permission slips are due by September 22, 2026. Please return the signed form al
 Students without a signed permission slip will not be able to attend.
 
 Thank you,
-[Your Name]"
+[Your Name]",False
 47,12,Payment Reminder,2026-09-27,Payment Reminder: Environmental Center — 6th Grade,"Dear 6th Grade Families,
 
 This is a friendly reminder that our field trip to Nature Reserve is just one week away on October 04, 2026!
@@ -512,7 +512,7 @@ If you have not yet returned your child's permission slip and payment, please do
 Please don't hesitate to reach out if you have any concerns — we want all students to participate.
 
 Thank you,
-[Your Name]"
+[Your Name]",False
 48,12,Day-Before Reminder,2026-10-03,Day-Before Reminder: Environmental Center — 6th Grade,"Dear 6th Grade Families,
 
 Just a reminder that tomorrow, October 04, 2026, is our field trip to Nature Reserve!
@@ -526,7 +526,7 @@ Please make sure your child:
 We are looking forward to a wonderful day! Feel free to reach out with any last-minute questions.
 
 See you tomorrow,
-[Your Name]"
+[Your Name]",False
 49,13,Initial Announcement,2026-09-25,Initial Announcement: Capitol Building Tour — 7th Grade,"Dear 7th Grade Families,
 
 We are excited to announce that our class will be going on a field trip to State Capitol on October 16, 2026!
@@ -536,7 +536,7 @@ This is a wonderful educational opportunity for our students. More details about
 Please mark your calendars and feel free to reach out with any questions.
 
 Warm regards,
-[Your Name]"
+[Your Name]",False
 50,13,Permission Slip Reminder,2026-10-02,Permission Slip Reminder: Capitol Building Tour — 7th Grade,"Dear 7th Grade Families,
 
 A reminder that our upcoming field trip to State Capitol is on October 16, 2026.
@@ -546,7 +546,7 @@ Permission slips are due by October 04, 2026. Please return the signed form alon
 Students without a signed permission slip will not be able to attend.
 
 Thank you,
-[Your Name]"
+[Your Name]",False
 51,13,Payment Reminder,2026-10-09,Payment Reminder: Capitol Building Tour — 7th Grade,"Dear 7th Grade Families,
 
 This is a friendly reminder that our field trip to State Capitol is just one week away on October 16, 2026!
@@ -556,7 +556,7 @@ If you have not yet returned your child's permission slip and payment, please do
 Please don't hesitate to reach out if you have any concerns — we want all students to participate.
 
 Thank you,
-[Your Name]"
+[Your Name]",False
 52,13,Day-Before Reminder,2026-10-15,Day-Before Reminder: Capitol Building Tour — 7th Grade,"Dear 7th Grade Families,
 
 Just a reminder that tomorrow, October 16, 2026, is our field trip to State Capitol!
@@ -570,7 +570,7 @@ Please make sure your child:
 We are looking forward to a wonderful day! Feel free to reach out with any last-minute questions.
 
 See you tomorrow,
-[Your Name]"
+[Your Name]",False
 53,14,Initial Announcement,2026-10-07,Initial Announcement: Tech Museum — 7th Grade,"Dear 7th Grade Families,
 
 We are excited to announce that our class will be going on a field trip to Innovation Museum on October 28, 2026!
@@ -580,7 +580,7 @@ This is a wonderful educational opportunity for our students. More details about
 Please mark your calendars and feel free to reach out with any questions.
 
 Warm regards,
-[Your Name]"
+[Your Name]",False
 54,14,Permission Slip Reminder,2026-10-14,Permission Slip Reminder: Tech Museum — 7th Grade,"Dear 7th Grade Families,
 
 A reminder that our upcoming field trip to Innovation Museum is on October 28, 2026.
@@ -590,7 +590,7 @@ Permission slips are due by October 16, 2026. Please return the signed form alon
 Students without a signed permission slip will not be able to attend.
 
 Thank you,
-[Your Name]"
+[Your Name]",False
 55,14,Payment Reminder,2026-10-21,Payment Reminder: Tech Museum — 7th Grade,"Dear 7th Grade Families,
 
 This is a friendly reminder that our field trip to Innovation Museum is just one week away on October 28, 2026!
@@ -600,7 +600,7 @@ If you have not yet returned your child's permission slip and payment, please do
 Please don't hesitate to reach out if you have any concerns — we want all students to participate.
 
 Thank you,
-[Your Name]"
+[Your Name]",False
 56,14,Day-Before Reminder,2026-10-27,Day-Before Reminder: Tech Museum — 7th Grade,"Dear 7th Grade Families,
 
 Just a reminder that tomorrow, October 28, 2026, is our field trip to Innovation Museum!
@@ -614,7 +614,7 @@ Please make sure your child:
 We are looking forward to a wonderful day! Feel free to reach out with any last-minute questions.
 
 See you tomorrow,
-[Your Name]"
+[Your Name]",False
 57,15,Initial Announcement,2026-10-19,Initial Announcement: Graduation Trip — 8th Grade,"Dear 8th Grade Families,
 
 We are excited to announce that our class will be going on a field trip to Disneyland on November 09, 2026!
@@ -624,7 +624,7 @@ This is a wonderful educational opportunity for our students. More details about
 Please mark your calendars and feel free to reach out with any questions.
 
 Warm regards,
-[Your Name]"
+[Your Name]",False
 58,15,Permission Slip Reminder,2026-10-26,Permission Slip Reminder: Graduation Trip — 8th Grade,"Dear 8th Grade Families,
 
 A reminder that our upcoming field trip to Disneyland is on November 09, 2026.
@@ -634,7 +634,7 @@ Permission slips are due by October 28, 2026. Please return the signed form alon
 Students without a signed permission slip will not be able to attend.
 
 Thank you,
-[Your Name]"
+[Your Name]",False
 59,15,Payment Reminder,2026-11-02,Payment Reminder: Graduation Trip — 8th Grade,"Dear 8th Grade Families,
 
 This is a friendly reminder that our field trip to Disneyland is just one week away on November 09, 2026!
@@ -644,7 +644,7 @@ If you have not yet returned your child's permission slip and payment, please do
 Please don't hesitate to reach out if you have any concerns — we want all students to participate.
 
 Thank you,
-[Your Name]"
+[Your Name]",False
 60,15,Day-Before Reminder,2026-11-08,Day-Before Reminder: Graduation Trip — 8th Grade,"Dear 8th Grade Families,
 
 Just a reminder that tomorrow, November 09, 2026, is our field trip to Disneyland!
@@ -658,4 +658,4 @@ Please make sure your child:
 We are looking forward to a wonderful day! Feel free to reach out with any last-minute questions.
 
 See you tomorrow,
-[Your Name]"
+[Your Name]",False
