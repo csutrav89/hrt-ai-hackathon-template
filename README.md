@@ -1,6 +1,6 @@
-# 🎉 HRT AI Hackathon Template
+# Field Trip Communicator App!
 
-A GitHub Codespace template for the Hospitality, Recreation, and Tourism (HRT) Applied Research Hackathon. Build a working Streamlit prototype with Claude — no coding experience required.
+A specilized app for helping to keep track of field trip communications
 
 ## Getting Started
 
