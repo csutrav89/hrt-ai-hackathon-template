@@ -251,8 +251,8 @@ if page == "🏠 Dashboard":
                 st.markdown("**Email Subject:**")
                 st.code(row["subject"], language=None)
                 st.markdown("**Email Body:**")
-                st.text_area("", value=row["body"], height=220,
-                             key=f"dash_{row['comm_id']}", disabled=True)
+                st.text_area("Email Body", value=row["body"], height=220,
+                             key=f"dash_{row['comm_id']}", disabled=True, label_visibility="collapsed")
 
         if not overdue.empty:
             st.subheader("🔴 Overdue — Send These Now!")
@@ -347,7 +347,7 @@ elif page == "✉️ Email Templates":
 elif page == "➕ Manage Field Trips":
     st.title("➕ Manage Field Trips")
 
-    tab_add, tab_view = st.tabs(["Add New Field Trip", "View / Delete Trips"])
+    tab_add, tab_edit, tab_view = st.tabs(["Add New Field Trip", "Edit Field Trip", "View / Delete Trips"])
 
     with tab_add:
         st.subheader("Add a New Field Trip")
@@ -393,6 +393,77 @@ elif page == "➕ Manage Field Trips":
                 st.success(f"✅ **{trip_name}** added for **{grade}** on **{trip_date.strftime('%B %d, %Y')}**! "
                            f"4 email reminders have been scheduled.")
                 st.rerun()
+
+    with tab_edit:
+        st.subheader("Edit an Existing Field Trip")
+        if trips_df.empty:
+            st.info("No field trips to edit yet.")
+        else:
+            edit_options = {
+                f"{r['grade']} — {r['trip_name']} ({pd.to_datetime(r['trip_date']).strftime('%b %d, %Y')})": int(r["trip_id"])
+                for _, r in trips_df.sort_values(["grade", "trip_date"]).iterrows()
+            }
+            selected_label = st.selectbox("Select a trip to edit", list(edit_options.keys()), key="edit_select")
+            edit_id = edit_options[selected_label]
+            trip_row = trips_df[trips_df["trip_id"] == edit_id].iloc[0]
+
+            existing_comms = comms_df[comms_df["trip_id"] == edit_id].copy()
+            existing_offsets = {}
+            if not existing_comms.empty:
+                existing_trip_date = pd.to_datetime(trip_row["trip_date"]).date()
+                for _, cr in existing_comms.iterrows():
+                    send = pd.to_datetime(cr["send_date"]).date()
+                    existing_offsets[cr["comm_type"]] = (existing_trip_date - send).days
+
+            with st.form("edit_trip"):
+                c1, c2 = st.columns(2)
+                edit_grade = c1.selectbox("Grade", GRADES, index=GRADES.index(trip_row["grade"]))
+                edit_name = c2.text_input("Trip Name", value=trip_row["trip_name"])
+                edit_dest = st.text_input("Destination / Location", value=trip_row["destination"])
+                edit_date = st.date_input(
+                    "Trip Date",
+                    value=pd.to_datetime(trip_row["trip_date"]).date(),
+                    min_value=date(2020, 1, 1)
+                )
+
+                st.markdown("**Communication schedule (days before trip):**")
+                off_cols = st.columns(4)
+                edit_offsets = {}
+                for i, ct in enumerate(COMM_TYPES):
+                    default_val = existing_offsets.get(ct, DEFAULT_OFFSETS[ct])
+                    edit_offsets[ct] = off_cols[i].number_input(
+                        ct, value=default_val, min_value=1, max_value=90, key=f"edit_off_{ct}"
+                    )
+
+                save_btn = st.form_submit_button("💾 Save Changes", use_container_width=True)
+
+            if save_btn:
+                if not edit_name.strip() or not edit_dest.strip():
+                    st.error("Please fill in Trip Name and Destination.")
+                else:
+                    trips_df.loc[trips_df["trip_id"] == edit_id, "grade"] = edit_grade
+                    trips_df.loc[trips_df["trip_id"] == edit_id, "trip_name"] = edit_name.strip()
+                    trips_df.loc[trips_df["trip_id"] == edit_id, "destination"] = edit_dest.strip()
+                    trips_df.loc[trips_df["trip_id"] == edit_id, "trip_date"] = edit_date.strftime("%Y-%m-%d")
+                    save_trips(trips_df)
+
+                    comms_df = comms_df[comms_df["trip_id"] != edit_id]
+                    updated_trip = {
+                        "trip_id": edit_id,
+                        "grade": edit_grade,
+                        "trip_name": edit_name.strip(),
+                        "destination": edit_dest.strip(),
+                        "trip_date": edit_date.strftime("%Y-%m-%d")
+                    }
+                    new_comm_rows = build_comms_for_trip(updated_trip, edit_offsets, templates)
+                    new_comm_df = pd.DataFrame(new_comm_rows)
+                    start_id = int(comms_df["comm_id"].max()) + 1 if not comms_df.empty else 1
+                    new_comm_df["comm_id"] = range(start_id, start_id + len(new_comm_df))
+                    comms_df = pd.concat([comms_df, new_comm_df], ignore_index=True)
+                    save_comms(comms_df)
+
+                    st.success(f"✅ **{edit_name}** updated! Email schedule has been regenerated.")
+                    st.rerun()
 
     with tab_view:
         st.subheader("All Field Trips")
