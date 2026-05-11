@@ -1,0 +1,16 @@
+trip_id,grade,trip_name,destination,trip_date
+1,PreK,Petting Zoo,Happy Hollow Zoo & Farm,2026-05-25
+2,PreK,Story Time Walk,City Botanical Garden,2026-06-06
+3,Kindergarten,Apple Picking,Sunridge Farm,2026-06-18
+4,Kindergarten,Fire Station Visit,Central Fire Station,2026-06-30
+5,1st Grade,Science Museum,Discovery Science Center,2026-07-12
+6,2nd Grade,Nature Hike,Regional Nature Park,2026-07-24
+7,2nd Grade,Aquarium Visit,Bay Aquarium,2026-08-05
+8,3rd Grade,History Museum,City History Museum,2026-08-17
+9,4th Grade,Planetarium,Space Science Center,2026-08-29
+10,4th Grade,Farm to Table,Green Valley Farm,2026-09-10
+11,5th Grade,Art Museum,Metropolitan Art Gallery,2026-09-22
+12,6th Grade,Environmental Center,Nature Reserve,2026-10-04
+13,7th Grade,Capitol Building Tour,State Capitol,2026-10-16
+14,7th Grade,Tech Museum,Innovation Museum,2026-10-28
+15,8th Grade,Graduation Trip,Disneyland,2026-11-09
