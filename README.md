@@ -1,4 +1,4 @@
-# 📅 Field Trip Communicator App 📅
+# <p align="center">📅 Field Trip Communicator App 📅 </p>
 
 <p align="center">A specilized app for helping to keep track of school communications for field trips. Perfect for adminsitrators who have to send many email communicaiton throughout the school year.</p> 
 
