@@ -10,13 +10,14 @@ DATA_DIR = "data_ai"
 TRIPS_FILE = f"{DATA_DIR}/field_trips.csv"
 COMMS_FILE = f"{DATA_DIR}/communications.csv"
 TEMPLATES_FILE = f"{DATA_DIR}/email_templates.json"
+OFFSETS_FILE = f"{DATA_DIR}/comm_offsets.json"
 
 os.makedirs(DATA_DIR, exist_ok=True)
 
 GRADES = ["PreK", "Kindergarten", "1st Grade", "2nd Grade", "3rd Grade",
           "4th Grade", "5th Grade", "6th Grade", "7th Grade", "8th Grade"]
 
-COMM_TYPES = [
+DEFAULT_COMM_TYPES = [
     "Initial Announcement",
     "Permission Slip Reminder",
     "Payment Reminder",
@@ -111,6 +112,18 @@ def save_templates(templates):
         json.dump(templates, f, indent=2)
 
 
+def load_offsets():
+    if os.path.exists(OFFSETS_FILE):
+        with open(OFFSETS_FILE, "r") as f:
+            return json.load(f)
+    return DEFAULT_OFFSETS.copy()
+
+
+def save_offsets(offsets):
+    with open(OFFSETS_FILE, "w") as f:
+        json.dump(offsets, f, indent=2)
+
+
 def load_trips():
     if os.path.exists(TRIPS_FILE):
         df = pd.read_csv(TRIPS_FILE)
@@ -152,7 +165,7 @@ def build_comms_for_trip(trip_row, offsets, templates):
     trip_date = pd.to_datetime(trip_row["trip_date"]).date()
     rows = []
     for comm_type in COMM_TYPES:
-        offset = offsets.get(comm_type, DEFAULT_OFFSETS[comm_type])
+        offset = offsets.get(comm_type, DEFAULT_OFFSETS.get(comm_type, 14))
         send_date = trip_date - timedelta(days=offset)
         due_date = trip_date - timedelta(days=max(offset - 2, 1))
         template = templates.get(comm_type, DEFAULT_TEMPLATES[comm_type])
@@ -179,6 +192,20 @@ def build_comms_for_trip(trip_row, offsets, templates):
 trips_df = load_trips()
 comms_df = load_comms()
 templates = load_templates()
+offsets = load_offsets()
+
+# Sync: any template without an offset gets the default (14 days)
+changed = False
+for ct in list(templates.keys()):
+    if ct not in offsets:
+        offsets[ct] = DEFAULT_OFFSETS.get(ct, 14)
+        changed = True
+if changed:
+    save_offsets(offsets)
+
+# COMM_TYPES is always derived from what's saved — default types first, then custom
+COMM_TYPES = [ct for ct in DEFAULT_COMM_TYPES if ct in templates] + \
+             [ct for ct in templates if ct not in DEFAULT_COMM_TYPES]
 
 existing_ids = set(comms_df["trip_id"].unique()) if not comms_df.empty else set()
 new_rows = []
@@ -316,32 +343,94 @@ elif page == "📋 Schedule by Grade":
 # ── Email Templates ───────────────────────────────────────────────────────────
 elif page == "✉️ Email Templates":
     st.title("✉️ Email Templates")
-    st.markdown("Edit the default templates used when you add a new field trip.")
-
     st.info("**Available placeholders:** `{grade}` · `{destination}` · `{trip_date}` · `{due_date}`")
 
-    selected_type = st.selectbox("Select template to edit", COMM_TYPES)
+    tab_edit_t, tab_add_t, tab_delete_t = st.tabs(["Edit Template", "Add New Template", "Delete Template"])
 
-    col_info, col_schedule = st.columns([2, 1])
-    with col_schedule:
-        st.subheader("Default Send Schedule")
-        sched = [{"Email Type": k, "Days Before Trip": v} for k, v in DEFAULT_OFFSETS.items()]
-        st.dataframe(pd.DataFrame(sched), use_container_width=True, hide_index=True)
+    with tab_edit_t:
+        st.subheader("Edit an Existing Template")
+        selected_type = st.selectbox("Select template to edit", COMM_TYPES, key="edit_tpl_select")
 
-    with col_info:
-        current_body = templates.get(selected_type, DEFAULT_TEMPLATES[selected_type])
-        edited_body = st.text_area(f"Template: {selected_type}", value=current_body, height=340)
+        col_info, col_schedule = st.columns([2, 1])
+        with col_schedule:
+            st.markdown("**Send schedule (days before trip)**")
+            sched = [{"Email Type": k, "Days Before Trip": v} for k, v in offsets.items()]
+            st.dataframe(pd.DataFrame(sched), use_container_width=True, hide_index=True)
 
-        c1, c2 = st.columns(2)
-        if c1.button("💾 Save Template", use_container_width=True):
-            templates[selected_type] = edited_body
-            save_templates(templates)
-            st.success(f"Template saved!")
+        with col_info:
+            current_body = templates.get(selected_type, DEFAULT_TEMPLATES.get(selected_type, ""))
+            edited_body = st.text_area(f"Template body", value=current_body, height=320,
+                                       key="edit_tpl_body")
+            current_offset = offsets.get(selected_type, DEFAULT_OFFSETS.get(selected_type, 14))
+            edited_offset = st.number_input("Days before trip to send this email",
+                                            value=current_offset, min_value=1, max_value=90,
+                                            key="edit_tpl_offset")
 
-        if c2.button("↩️ Reset to Default", use_container_width=True):
-            templates[selected_type] = DEFAULT_TEMPLATES[selected_type]
-            save_templates(templates)
-            st.rerun()
+            c1, c2 = st.columns(2)
+            if c1.button("💾 Save Changes", use_container_width=True, key="save_tpl"):
+                templates[selected_type] = edited_body
+                offsets[selected_type] = edited_offset
+                save_templates(templates)
+                save_offsets(offsets)
+                st.success("Template saved!")
+
+            if c2.button("↩️ Reset to Default", use_container_width=True, key="reset_tpl",
+                         disabled=selected_type not in DEFAULT_TEMPLATES):
+                templates[selected_type] = DEFAULT_TEMPLATES[selected_type]
+                offsets[selected_type] = DEFAULT_OFFSETS[selected_type]
+                save_templates(templates)
+                save_offsets(offsets)
+                st.rerun()
+
+    with tab_add_t:
+        st.subheader("Add a New Email Template")
+        st.markdown("Create a custom email type that will be added to every field trip's communication schedule.")
+
+        with st.form("add_template_form"):
+            new_type_name = st.text_input("Template Name",
+                                          placeholder="e.g., Chaperone Volunteer Request")
+            new_offset = st.number_input("Days before trip to send this email",
+                                         value=10, min_value=1, max_value=90)
+            new_body = st.text_area("Email Body", height=300, placeholder="""Dear {grade} Families,
+
+[Write your email here. You can use {grade}, {destination}, {trip_date}, and {due_date} as placeholders.]
+
+Thank you,
+[Your Name]""")
+            add_tpl_btn = st.form_submit_button("➕ Add Template", use_container_width=True)
+
+        if add_tpl_btn:
+            name = new_type_name.strip()
+            if not name:
+                st.error("Please enter a template name.")
+            elif name in templates:
+                st.error(f'A template named "{name}" already exists. Use Edit Template to modify it.')
+            elif not new_body.strip():
+                st.error("Please enter an email body.")
+            else:
+                templates[name] = new_body.strip()
+                offsets[name] = int(new_offset)
+                save_templates(templates)
+                save_offsets(offsets)
+                st.success(f'✅ Template **"{name}"** added! It will appear in the communication '
+                           f'schedule when you add or edit field trips.')
+                st.rerun()
+
+    with tab_delete_t:
+        st.subheader("Delete a Custom Template")
+        custom_types = [ct for ct in templates if ct not in DEFAULT_COMM_TYPES]
+        if not custom_types:
+            st.info("You have no custom templates to delete. Default templates cannot be deleted.")
+        else:
+            st.warning("Deleting a template does **not** remove already-scheduled emails for existing trips.")
+            to_del = st.selectbox("Select template to delete", custom_types, key="del_tpl_select")
+            if st.button("🗑️ Delete Template", type="secondary", key="del_tpl_btn"):
+                templates.pop(to_del, None)
+                offsets.pop(to_del, None)
+                save_templates(templates)
+                save_offsets(offsets)
+                st.success(f'Template "{to_del}" deleted.')
+                st.rerun()
 
 # ── Manage Field Trips ────────────────────────────────────────────────────────
 elif page == "➕ Manage Field Trips":
@@ -359,11 +448,13 @@ elif page == "➕ Manage Field Trips":
             trip_date = st.date_input("Trip Date", min_value=date.today() + timedelta(days=1))
 
             st.markdown("**Adjust communication schedule (days before trip):**")
-            off_cols = st.columns(4)
+            n_cols = min(len(COMM_TYPES), 4)
+            off_cols = st.columns(n_cols)
             custom_offsets = {}
             for i, ct in enumerate(COMM_TYPES):
-                custom_offsets[ct] = off_cols[i].number_input(
-                    ct, value=DEFAULT_OFFSETS[ct], min_value=1, max_value=90, key=f"off_{ct}"
+                custom_offsets[ct] = off_cols[i % n_cols].number_input(
+                    ct, value=offsets.get(ct, DEFAULT_OFFSETS.get(ct, 14)),
+                    min_value=1, max_value=90, key=f"off_{ct}"
                 )
 
             submitted = st.form_submit_button("➕ Add Field Trip", use_container_width=True)
@@ -427,11 +518,12 @@ elif page == "➕ Manage Field Trips":
                 )
 
                 st.markdown("**Communication schedule (days before trip):**")
-                off_cols = st.columns(4)
+                n_cols = min(len(COMM_TYPES), 4)
+                off_cols = st.columns(n_cols)
                 edit_offsets = {}
                 for i, ct in enumerate(COMM_TYPES):
-                    default_val = existing_offsets.get(ct, DEFAULT_OFFSETS[ct])
-                    edit_offsets[ct] = off_cols[i].number_input(
+                    default_val = existing_offsets.get(ct, offsets.get(ct, DEFAULT_OFFSETS.get(ct, 14)))
+                    edit_offsets[ct] = off_cols[i % n_cols].number_input(
                         ct, value=default_val, min_value=1, max_value=90, key=f"edit_off_{ct}"
                     )
 
