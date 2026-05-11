@@ -128,6 +128,12 @@ def load_trips():
     if os.path.exists(TRIPS_FILE):
         df = pd.read_csv(TRIPS_FILE)
         df["trip_id"] = df["trip_id"].astype(int)
+        if "num_students" not in df.columns:
+            df["num_students"] = 0
+        if "chaperones" not in df.columns:
+            df["chaperones"] = ""
+        df["num_students"] = df["num_students"].fillna(0).astype(int)
+        df["chaperones"] = df["chaperones"].fillna("")
         return df
     today = date.today()
     rows = []
@@ -137,7 +143,9 @@ def load_trips():
             "grade": grade,
             "trip_name": name,
             "destination": dest,
-            "trip_date": (today + timedelta(days=14 + i * 12)).strftime("%Y-%m-%d")
+            "trip_date": (today + timedelta(days=14 + i * 12)).strftime("%Y-%m-%d"),
+            "num_students": 0,
+            "chaperones": ""
         })
     df = pd.DataFrame(rows)
     df.to_csv(TRIPS_FILE, index=False)
@@ -447,6 +455,11 @@ elif page == "➕ Manage Field Trips":
             destination = st.text_input("Destination / Location", placeholder="e.g., Discovery Science Center")
             trip_date = st.date_input("Trip Date", min_value=date.today() + timedelta(days=1))
 
+            c3, c4 = st.columns(2)
+            num_students = c3.number_input("Number of Students", min_value=0, value=0, step=1)
+            chaperones = c4.text_area("Teacher Chaperones", placeholder="e.g., Ms. Johnson, Mr. Lee",
+                                      height=80, help="Enter names separated by commas")
+
             st.markdown("**Adjust communication schedule (days before trip):**")
             n_cols = min(len(COMM_TYPES), 4)
             off_cols = st.columns(n_cols)
@@ -469,7 +482,9 @@ elif page == "➕ Manage Field Trips":
                     "grade": grade,
                     "trip_name": trip_name.strip(),
                     "destination": destination.strip(),
-                    "trip_date": trip_date.strftime("%Y-%m-%d")
+                    "trip_date": trip_date.strftime("%Y-%m-%d"),
+                    "num_students": int(num_students),
+                    "chaperones": chaperones.strip()
                 }
                 trips_df = pd.concat([trips_df, pd.DataFrame([new_trip])], ignore_index=True)
                 save_trips(trips_df)
@@ -517,6 +532,15 @@ elif page == "➕ Manage Field Trips":
                     min_value=date(2020, 1, 1)
                 )
 
+                c3, c4 = st.columns(2)
+                edit_students = c3.number_input("Number of Students",
+                                                min_value=0, step=1,
+                                                value=int(trip_row.get("num_students", 0)))
+                edit_chaperones = c4.text_area("Teacher Chaperones",
+                                               value=str(trip_row.get("chaperones", "") or ""),
+                                               height=80,
+                                               help="Enter names separated by commas")
+
                 st.markdown("**Communication schedule (days before trip):**")
                 n_cols = min(len(COMM_TYPES), 4)
                 off_cols = st.columns(n_cols)
@@ -537,6 +561,8 @@ elif page == "➕ Manage Field Trips":
                     trips_df.loc[trips_df["trip_id"] == edit_id, "trip_name"] = edit_name.strip()
                     trips_df.loc[trips_df["trip_id"] == edit_id, "destination"] = edit_dest.strip()
                     trips_df.loc[trips_df["trip_id"] == edit_id, "trip_date"] = edit_date.strftime("%Y-%m-%d")
+                    trips_df.loc[trips_df["trip_id"] == edit_id, "num_students"] = int(edit_students)
+                    trips_df.loc[trips_df["trip_id"] == edit_id, "chaperones"] = edit_chaperones.strip()
                     save_trips(trips_df)
 
                     comms_df = comms_df[comms_df["trip_id"] != edit_id]
@@ -564,11 +590,13 @@ elif page == "➕ Manage Field Trips":
         else:
             display = trips_df.copy()
             display["trip_date"] = pd.to_datetime(display["trip_date"]).dt.strftime("%B %d, %Y")
+            display["num_students"] = display["num_students"].astype(int)
+            display["chaperones"] = display["chaperones"].fillna("").astype(str)
             display = display.sort_values(["grade", "trip_date"])
             st.dataframe(
-                display[["grade", "trip_name", "destination", "trip_date"]].rename(columns={
-                    "grade": "Grade", "trip_name": "Trip Name",
-                    "destination": "Destination", "trip_date": "Trip Date"
+                display[["grade", "trip_name", "destination", "trip_date", "num_students", "chaperones"]].rename(columns={
+                    "grade": "Grade", "trip_name": "Trip Name", "destination": "Destination",
+                    "trip_date": "Trip Date", "num_students": "# Students", "chaperones": "Chaperones"
                 }),
                 use_container_width=True, hide_index=True
             )
